@@ -9,28 +9,43 @@ public class Flight{
     private int total_seats;
     private String source;
     private String destination;
-    private String time;
-    private LocalDate date;
+    private LocalDateTime dateDepartTime;
+    private LocalDateTime dateArriveTime;
     private ArrayList<Seat> seats;
-    private String duration;
     private int basePrice;
 
 
-    public Flight(String flightNumber, int total_seats, String source, String destination, String time, LocalDate date, ArrayList<Seat> seats, String duration, int basePrice) {
+    public Flight(String flightNumber, int total_seats, String source, String destination, String time, LocalDateTime dateDepartTime, LocalDateTime dateArriveTime, ArrayList<Seat> seats, int basePrice) {
         this.flightNumber = flightNumber;
         this.total_seats = total_seats;
         this.source = source;
         this.destination = destination;
-        this.time = time;
-        this.date = date;
+        this.dateDepartTime = dateDepartTime;
+        this.dateArriveTime = dateArrivTime;
         this.seats = seats;
-        this.duration = duration;
         this.basePrice = basePrice;
     }
 
-    //Always returns false for now, but should check if the flight is full or not
+    //check if the flight is full or not
     public boolean isFull(){
-        return false;
+        if (flight.totalAvailableSeats() <= 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    //gets number available seats
+    public int totalAvailableSeats(){
+        int count = 0;
+
+        for(Seats seat : seats)
+            if(seat.isBooked() == false){
+                count += 1;
+            }
+
+        return count;
     }
 
     @Override
@@ -38,13 +53,18 @@ public class Flight{
         return "Flight{" +
                 "flightNumber='" + flightNumber + '\'' +
                 ", time='" + time + '\'' +
-                ", duration='" + duration + '\'' +
+                ", Time Departure='" + dateDepartTime + '\'' +
+                ", Time Arrival='" + dateArriveTime + '\'' +
                 ", basePrice=" + basePrice +
                 '}';
     }
 
-    public LocalDate getDate(){
-        return this.date;
+    public LocalDateTime getdateDepartTime(){
+        return this.dateDepartTime;
+    }
+
+    public LocalDateTime getdateArriveTime(){
+        return this.dateArriveTime;
     }
 
     public String getSource(){
@@ -63,16 +83,8 @@ public class Flight{
         return total_seats;
     }
 
-    public String getTime() {
-        return time;
-    }
-
     public ArrayList<Seat> getSeats() {
         return seats;
-    }
-
-    public String getDuration() {
-        return duration;
     }
 
     public int getBasePrice() {
@@ -95,20 +107,16 @@ public class Flight{
         this.destination = destination;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public LocalDateTime setdateDepartTime(LocalDateTime dateDepartTime){
+        this.dateDepartTime = dateDepartTime;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public LocalDateTime setdateArriveTime(LocalDateTime dateArriveTime){
+        this.dateArriveTime = dateArriveTime;
     }
 
     public void setSeats(ArrayList<Seat> seats) {
         this.seats = seats;
-    }
-
-    public void setDuration(String duration) {
-        this.duration = duration;
     }
 
     public void setBasePrice(int basePrice) {

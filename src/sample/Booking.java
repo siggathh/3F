@@ -1,28 +1,30 @@
 package sample;
 
 public class Booking {
-    private Seat seat;
+    private ArrayList<Seat> seats;
     private Passenger passenger;
+    private int groupSize;
     private int bags;
     private int oddSized;
     private int blankets;
     private int pillows;
 
-    public Booking(Seat seat, Passenger passenger, int bags, int oddSized, int blankets, int pillows) {
-        this.seat = seat;
+    public Booking(ArrayList<Seat> seats, Passenger passenger, int groupSize, int bags, int oddSized, int blankets, int pillows) {
+        this.seats = seats;
         this.passenger = passenger;
+        this.groupSize = groupSize;
         this.bags = bags;
         this.oddSized = oddSized;
         this.blankets = blankets;
         this.pillows = pillows;
     }
 
-    public Seat getSeat() {
-        return seat;
+    public ArrayList<Seat> getSeats() {
+        return seats;
     }
 
-    public void setSeat(Seat seat) {
-        this.seat = seat;
+    public void setSeat(ArrayList<Seat> seats) {
+        this.seats = seats;
     }
 
     public Passenger getPassenger() {
@@ -31,6 +33,14 @@ public class Booking {
 
     public void setPassenger(Passenger passenger) {
         this.passenger = passenger;
+    }
+
+    public int getgroupSize() {
+        return groupSize;
+    }
+
+    public void setgroupSize(int groupSize) {
+        this.groupSize = groupSize;
     }
 
     public int getBags() {

@@ -54,20 +54,48 @@ public class Controller implements Initializable {
         flightsListView.setItems(availableFlights);
     }
 
-    public ObservableList<Flight> getAvailableFlights(LocalDate date, String source, String destination){
+    public ObservableList<Flight> getAvailableFlights(LocalDate date, String source, String destination, int groupSize){
         ObservableList<Flight> availableFlights = FXCollections.observableArrayList();
-        LocalDate beforeDate = date.minusDays(1);
-        LocalDate afterDate = date.plusDays(1);
+        //LocalDate beforeDate = date.minusDays(1);
+        //LocalDate afterDate = date.plusDays(1);
 
         for(Flight flight : flights){
-            if (((date.equals(flight.getDate()) || (beforeDate.equals(flight.getDate())) || (afterDate.equals(flight.getDate()))) &&
+            if (date.equals(flight.getDate()) &&
                     source.equals(flight.getSource()) &&
-                    destination.equals(flight.getDestination()))) {
-                     availableFlights.add(flight);
+                    destination.equals(flight.getDestination()) &&
+                    flight.totalAvailableSeats() >= groupSize)
+                    ) {
+                    availableFlights.add(flight);
             }
         }
 
         return availableFlights;
+    }
+
+    public ObservableList<Seats> getAvailableSeats(String flightNumber){
+        ObservableList<Seats> availableSeats = FXCollections.observableArrayList();
+
+        // find flight that we want to book
+        for(Flight flight : flights){
+            if(flight.getFlightNumber().equals(flightNumber)){
+                Flight ourFlight = flight;
+                break;
+            }
+        }
+
+        ArrayList<Seats> ourSeats = ourflight.getSeats()
+
+        for(Seats seat : ourSeats){
+            if(seat.isBooked() == false){
+                availableSeats.add(seat);
+            }
+        }
+
+        return availableSeats;
+    }
+
+    public void booking(String flightNumber, ArrayList<Seat> seat, Passenger passenger, int groupSize, int bags, int oddSized, int pillows, int blankets){
+        
     }
 
 }

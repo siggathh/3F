@@ -33,17 +33,19 @@ public class DataFactory {
         ObservableList<Flight> flightslist = FXCollections.observableArrayList();
 
         int[] myNum = {19, 32, 37, 72};
-        LocalDate date = LocalDate.of(2021, 07, 14);
+        //LocalDate date = LocalDate.of(2021, 07, 14);
+
+        LocalDateTime departure = ?;
+        LocalDateTime arrival = ?;
         //creates mock flights
         Flight flight1 = new Flight(
                 "FI741",
                 myNum[(int) Math.random() * 4],
                 "Reykjavík",
                 "Akureyri",
-                "07:30",
-                date,
+                departure,
+                arrival,
                 null,
-                "40 min",
                 30000 + (int) Math.random() * (100000 - 30000 + 1)
         );
         flight1.setSeats(getSeats(flight1.getFlightNumber(), flight1.getTotal_seats()));
@@ -54,10 +56,9 @@ public class DataFactory {
                 myNum[(int) Math.random() * 4],
                 "Reykjavík",
                 "Egilsstaðir",
-                "9:15",
-                date,
+                departure,
+                arrival,
                 null,
-                "40 min",
                 30000 + (int) Math.random() * (100000 - 30000 + 1)
         );
         flight2.setSeats(getSeats(flight2.getFlightNumber(), flight2.getTotal_seats()));
@@ -68,10 +69,9 @@ public class DataFactory {
                 myNum[(int) Math.random() * 4],
                 "Reykjavík",
                 "Ísafjörður",
-                "12:20",
-                date,
+                departure,
+                arrival,
                 null,
-                "40 min",
                 30000 + (int) Math.random() * (100000 - 30000 + 1)
         );
         flight3.setSeats(getSeats(flight3.getFlightNumber(), flight3.getTotal_seats()));
@@ -82,10 +82,9 @@ public class DataFactory {
                 myNum[(int) Math.random() * 4],
                 "Reykjavík",
                 "Vestmannaeyjar",
-                "15:45",
-                date,
+                departure,
+                arrival,
                 null,
-                "40 min",
                 30000 + (int) Math.random() * (100000 - 30000 + 1)
         );
         flight4.setSeats(getSeats(flight4.getFlightNumber(), flight4.getTotal_seats()));
@@ -96,10 +95,9 @@ public class DataFactory {
                 myNum[(int) Math.random() * 4],
                 "Húsavík",
                 "Reykjavík",
-                "18:38",
-                date,
+                departure,
+                arrival,
                 null,
-                "40 min",
                 30000 + (int) Math.random() * (100000 - 30000 + 1)
         );
         flight5.setSeats(getSeats(flight5.getFlightNumber(), flight5.getTotal_seats()));
@@ -110,10 +108,9 @@ public class DataFactory {
                 myNum[(int) Math.random() * 4],
                 "Höfn í Hornafirði",
                 "Reykjavík",
-                "20:55",
-                date,
+                departure,
+                arrival,
                 null,
-                "40 min",
                 30000 + (int) Math.random() * (100000 - 30000 + 1)
         );
         flight6.setSeats(getSeats(flight6.getFlightNumber(), flight6.getTotal_seats()));
