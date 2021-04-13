@@ -94,8 +94,33 @@ public class Controller implements Initializable {
         return availableSeats;
     }
 
-    public void booking(String flightNumber, ArrayList<Seat> seat, Passenger passenger, int groupSize, int bags, int oddSized, int pillows, int blankets){
-        
+    public void booking(String flightNumber, ArrayList<Seat> seats, Passenger passenger, int groupSize, int bags, int oddSized, int pillows, int blankets){
+        //bý til nýtt booking object
+        Booking booking = new Booking(seats, passenger, groupSize, bags, oddSized, pillows, blankets) 
+
+        // find flight that we want to book
+        for(Flight flight : flights){
+            if(flight.getFlightNumber().equals(flightNumber)){
+                Flight ourFlight = flight;
+                break;
+            }
+        }
+
+        Seat flightSeats = ourFlight.getSeats();
+
+        //hér þarf svo að stilla sko isBooked fyrir viðeigandi sæti
+        //þetta gæti verið glöötuð lykkja endilega skulum skoða betur
+        int i = 0;
+        for(Seat seat : flightSeats){
+            int i = 0;
+            String seatNumber = seat.getseatNumber();
+            String seatNumber2 = seats[i].getseatNumber(); //okei veit ekki hvort megi hehö
+
+            if(seatNumber.equals(seatNumber2)){
+                seat.setisBooked();
+                i+=1;
+            }
+        }
     }
 
 }

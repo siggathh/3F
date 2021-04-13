@@ -33,8 +33,8 @@ public class Seat {
         return isBooked;
     }
 
-    public void setBooked(boolean booked) {
-        isBooked = booked;
+    public void setBooked() {
+        isBooked = true;
     }
 
     public String getSeatClass() {
