@@ -131,7 +131,7 @@ public class DataFactory {
         Flight flight = flights.get(0);
 
         ArrayList<Booking> bookings1 = new ArrayList<>();
-        bookings1.add(new Booking(flight.getSeats(), passenger1, 1, 1,1,1,1));
+        bookings1.add(new Booking(flight.getSeats(), passenger1, 1, 1,1,1,1, false));
         flight.getSeats().get(0).setBooked();
         flight.getSeats().get(1).setBooked();
         flight.getSeats().get(2).setBooked();

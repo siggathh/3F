@@ -10,8 +10,9 @@ public class Booking {
     private int oddSized;
     private int blankets;
     private int pillows;
+    private boolean handicaped;
 
-    public Booking(ArrayList<Seat> seats, Passenger passenger, int groupSize, int bags, int oddSized, int blankets, int pillows) {
+    public Booking(ArrayList<Seat> seats, Passenger passenger, int groupSize, int bags, int oddSized, int blankets, int pillows, boolean handicaped) {
         this.seats = seats;
         this.passenger = passenger;
         this.groupSize = groupSize;
@@ -19,6 +20,7 @@ public class Booking {
         this.oddSized = oddSized;
         this.blankets = blankets;
         this.pillows = pillows;
+        this.handicaped = handicaped;
     }
 
     public ArrayList<Seat> getSeats() {
@@ -75,5 +77,13 @@ public class Booking {
 
     public void setPillows(int pillows) {
         this.pillows = pillows;
+    }
+
+    public boolean gethandicaped(){
+        return handicaped;
+    }
+
+    public void sethandicaped(boolean handicaped){
+        this.handicaped = handicaped;
     }
 }

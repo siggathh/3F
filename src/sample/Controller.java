@@ -93,9 +93,9 @@ public class Controller implements Initializable {
         return availableSeats;
     }
 
-    public void booking(String flightNumber, ArrayList<Seat> seats, Passenger passenger, int groupSize, int bags, int oddSized, int pillows, int blankets){
+    public void bookFlight(String flightNumber, ArrayList<Seat> seats, Passenger passenger, int groupSize, int bags, int oddSized, int pillows, int blankets, boolean handicaped){
         //bý til nýtt booking object
-        Booking booking = new Booking(seats, passenger, groupSize, bags, oddSized, pillows, blankets);
+        Booking booking = new Booking(seats, passenger, groupSize, bags, oddSized, pillows, blankets, handicaped);
 
         // find flight that we want to book
         Flight ourFlight = null;
