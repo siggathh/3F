@@ -6,11 +6,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import java.time.LocalDate;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -19,15 +21,14 @@ public class Controller implements Initializable {
     @FXML
     private ListView flightsListView;
     @FXML
-    private TextField yearTextField;
-    @FXML
-    private TextField dayTextField;
-    @FXML
-    private TextField monthTextField;
+    private DatePicker datePicker;
     @FXML
     private TextField sourceTextField;
     @FXML
     private TextField destinationTextField;
+    @FXML
+    private TextField groupSizeTextField;
+
     private DataFactory dataFactory = new DataFactory();
     private ObservableList<Flight> flights = FXCollections.observableArrayList();
     private ObservableList<Passenger> passengers = FXCollections.observableArrayList();
@@ -40,31 +41,28 @@ public class Controller implements Initializable {
 
     public void searchButtonOnActivity(ActionEvent event){
 
-        int year = Integer.parseInt(yearTextField.getText()); // hér þarf að breyta í int úr string sigga reddar
-        int day = Integer.parseInt(dayTextField.getText());
-        int month = Integer.parseInt(monthTextField.getText());
-
-        LocalDate date = LocalDate.of(year, month, day);
+        LocalDate date = datePicker.getValue();
 
         String source = sourceTextField.getText();
         String destination = destinationTextField.getText();
+        int groupSize = Integer.parseInt(groupSizeTextField.getText());
 
-        ObservableList<Flight> availableFlights = getAvailableFlights(date, source, destination);
+
+        ObservableList<Flight> availableFlights = getAvailableFlights(date, source, destination, groupSize);
 
         flightsListView.setItems(availableFlights);
     }
 
-    public ObservableList<Flight> getAvailableFlights(LocalDate date, String source, String destination, int groupSize){
+    public static ObservableList<Flight> getAvailableFlights(LocalDate date, String source, String destination, int groupSize){
         ObservableList<Flight> availableFlights = FXCollections.observableArrayList();
         //LocalDate beforeDate = date.minusDays(1);
         //LocalDate afterDate = date.plusDays(1);
 
-        for(Flight flight : flights){
-            if (date.equals(flight.getDate()) &&
+        for(Flight flight : DataFactory.getFlights()){
+            if (date.equals(flight.getDateArrivalTime().toLocalDate()) &&
                     source.equals(flight.getSource()) &&
                     destination.equals(flight.getDestination()) &&
-                    flight.totalAvailableSeats() >= groupSize)
-                    ) {
+                    flight.totalAvailableSeats() >= groupSize) {
                     availableFlights.add(flight);
             }
         }
@@ -72,20 +70,21 @@ public class Controller implements Initializable {
         return availableFlights;
     }
 
-    public ObservableList<Seats> getAvailableSeats(String flightNumber){
-        ObservableList<Seats> availableSeats = FXCollections.observableArrayList();
+    public ObservableList<Seat> getAvailableSeats(String flightNumber){
+        ObservableList<Seat> availableSeats = FXCollections.observableArrayList();
 
         // find flight that we want to book
+        Flight ourFlight = null;
         for(Flight flight : flights){
             if(flight.getFlightNumber().equals(flightNumber)){
-                Flight ourFlight = flight;
+                ourFlight = flight;
                 break;
             }
         }
 
-        ArrayList<Seats> ourSeats = ourflight.getSeats()
+        ArrayList<Seat> ourSeats = ourFlight.getSeats();
 
-        for(Seats seat : ourSeats){
+        for(Seat seat : ourSeats){
             if(seat.isBooked() == false){
                 availableSeats.add(seat);
             }
@@ -96,28 +95,29 @@ public class Controller implements Initializable {
 
     public void booking(String flightNumber, ArrayList<Seat> seats, Passenger passenger, int groupSize, int bags, int oddSized, int pillows, int blankets){
         //bý til nýtt booking object
-        Booking booking = new Booking(seats, passenger, groupSize, bags, oddSized, pillows, blankets) 
+        Booking booking = new Booking(seats, passenger, groupSize, bags, oddSized, pillows, blankets);
 
         // find flight that we want to book
+        Flight ourFlight = null;
         for(Flight flight : flights){
             if(flight.getFlightNumber().equals(flightNumber)){
-                Flight ourFlight = flight;
+                ourFlight = flight;
                 break;
             }
         }
 
-        Seat flightSeats = ourFlight.getSeats();
+        ArrayList<Seat> flightSeats = ourFlight.getSeats();
 
         //hér þarf svo að stilla sko isBooked fyrir viðeigandi sæti
         //þetta gæti verið glöötuð lykkja endilega skulum skoða betur
         int i = 0;
         for(Seat seat : flightSeats){
-            int i = 0;
-            String seatNumber = seat.getseatNumber();
-            String seatNumber2 = seats[i].getseatNumber(); //okei veit ekki hvort megi hehö
+            i = 0;
+            String seatNumber = seat.getSeatNumber();
+            String seatNumber2 = seats.get(i).getSeatNumber(); //okei veit ekki hvort megi hehö
 
             if(seatNumber.equals(seatNumber2)){
-                seat.setisBooked();
+                seat.setBooked();
                 i+=1;
             }
         }

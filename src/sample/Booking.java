@@ -1,5 +1,7 @@
 package sample;
 
+import java.util.ArrayList;
+
 public class Booking {
     private ArrayList<Seat> seats;
     private Passenger passenger;

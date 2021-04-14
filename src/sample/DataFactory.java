@@ -1,6 +1,7 @@
 package sample;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Observable;
@@ -10,7 +11,7 @@ import javafx.collections.ObservableList;
 
 public class DataFactory {
 
-    public ArrayList<Seat> getSeats(String flightNumber, int total_seats) {
+    public static ArrayList<Seat> getSeats(String flightNumber, int total_seats) {
         ArrayList<Seat> seats = new ArrayList<Seat>();
         for (int k = 0; k < (total_seats / 4); k++) {
             String flightClass;
@@ -29,14 +30,14 @@ public class DataFactory {
         return seats;
     }
 
-    public ObservableList<Flight> getFlights() {
+    public static ObservableList<Flight> getFlights() {
         ObservableList<Flight> flightslist = FXCollections.observableArrayList();
 
         int[] myNum = {19, 32, 37, 72};
         //LocalDate date = LocalDate.of(2021, 07, 14);
 
-        LocalDateTime departure = ?;
-        LocalDateTime arrival = ?;
+        LocalDateTime departure = LocalDateTime.of(2021,07, 14, 14,30);
+        LocalDateTime arrival = LocalDateTime.of(2021,07, 14, 15,10);;
         //creates mock flights
         Flight flight1 = new Flight(
                 "FI741",
@@ -115,6 +116,7 @@ public class DataFactory {
         );
         flight6.setSeats(getSeats(flight6.getFlightNumber(), flight6.getTotal_seats()));
         flightslist.add(flight6);
+        System.out.println(flight1.toString());
         return flightslist;
     }
 
@@ -125,27 +127,17 @@ public class DataFactory {
         Passenger passenger2 = new Passenger("2", "Signý", "Hall");
         Passenger passenger3 = new Passenger("3", "Inga", "Hall");
 
-        ObservableList<Flight> flights = getFlights();
+        ObservableList<Flight>flights = getFlights();
         Flight flight = flights.get(0);
 
         ArrayList<Booking> bookings1 = new ArrayList<>();
-        bookings1.add(new Booking(flight.getSeats().get(0), passenger1, 1, 1,1,1));
-        flight.getSeats().get(0).setBooked(true);
+        bookings1.add(new Booking(flight.getSeats(), passenger1, 1, 1,1,1,1));
+        flight.getSeats().get(0).setBooked();
+        flight.getSeats().get(1).setBooked();
+        flight.getSeats().get(2).setBooked();
         passenger1.setBookings(bookings1);
 
-        ArrayList<Booking> bookings2 = new ArrayList<>();
-        bookings2.add(new Booking(flight.getSeats().get(1), passenger2, 1, 1,1,5));
-        flight.getSeats().get(1).setBooked(true);
-        passenger2.setBookings(bookings2);
-
-        ArrayList<Booking> bookings3 = new ArrayList<>();
-        bookings3.add(new Booking(flight.getSeats().get(2), passenger3, 0, 10,1,1));
-        flight.getSeats().get(2).setBooked(true);
-        passenger3.setBookings(bookings3);
-
         passengers.add(passenger1);
-        passengers.add(passenger2);
-        passengers.add(passenger3);
 
         return passengers;
     }
