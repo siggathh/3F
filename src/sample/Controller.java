@@ -9,10 +9,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+
+import javax.xml.crypto.Data;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -48,20 +53,20 @@ public class Controller implements Initializable {
         int groupSize = Integer.parseInt(groupSizeTextField.getText());
 
 
-        ObservableList<Flight> availableFlights = getAvailableFlights(date, source, destination, groupSize);
+//        ObservableList<Flight> availableFlights = getAvailableFlights(date, source, destination, groupSize);
 
-        flightsListView.setItems(availableFlights);
+//        flightsListView.setItems(availableFlights);
     }
 
-    public static ObservableList<Flight> getAvailableFlights(LocalDate date, String source, String destination, int groupSize){
+    public static ObservableList<Flight> getAvailableFlights(LocalDate date, int source, int destination, int groupSize){
         ObservableList<Flight> availableFlights = FXCollections.observableArrayList();
         //LocalDate beforeDate = date.minusDays(1);
         //LocalDate afterDate = date.plusDays(1);
 
         for(Flight flight : DataFactory.getFlights()){
             if (date.equals(flight.getDateArrivalTime().toLocalDate()) &&
-                    source.equals(flight.getSource()) &&
-                    destination.equals(flight.getDestination()) &&
+                    source == flight.getSource() &&
+                    destination == flight.getDestination() &&
                     flight.totalAvailableSeats() >= groupSize) {
                     availableFlights.add(flight);
             }
@@ -70,36 +75,64 @@ public class Controller implements Initializable {
         return availableFlights;
     }
 
-    public ObservableList<Seat> getAvailableSeats(String flightNumber){
-        ObservableList<Seat> availableSeats = FXCollections.observableArrayList();
+    public static ArrayList<Seat> getAvailableSeats(String flightNumber){
+        ArrayList<Seat> notAvailableSeats = new ArrayList<>();
+
+        ArrayList<Booking> bookings = getAllBookngs();
+
+        for(Booking booking : bookings){
+            ArrayList<Seat> seats = booking.getSeats();
+            for(Seat seat : seats){
+                if(seat.getFlightNumber().equals(flightNumber));
+                    notAvailableSeats.add(seat);
+            }
+
+
+        }
+
 
         // find flight that we want to book
         Flight ourFlight = null;
-        for(Flight flight : flights){
+        for(Flight flight : DataFactory.getFlights()){
             if(flight.getFlightNumber().equals(flightNumber)){
                 ourFlight = flight;
                 break;
             }
         }
 
-        ArrayList<Seat> ourSeats = ourFlight.getSeats();
+       ArrayList<Seat> availableSeats = ourFlight.getSeats();
 
-        for(Seat seat : ourSeats){
-            if(seat.isBooked() == false){
-                availableSeats.add(seat);
-            }
-        }
-
-        return availableSeats;
+       availableSeats.removeAll(notAvailableSeats);
+//
+//        for(Seat seat : ourSeats){
+//            if(!seat.isBooked()){
+//                availableSeats.add(seat);
+//            }
+//        }
+//
+       return availableSeats;
     }
 
-    public void bookFlight(String flightNumber, ArrayList<Seat> seats, Passenger passenger, int groupSize, int bags, int oddSized, int pillows, int blankets, boolean handicaped){
+    public static ArrayList<Booking> getAllBookngs() {
+        ArrayList<Booking> bookings = new ArrayList<>();
+        ObservableList<Passenger> passengers = DataFactory.getPassengers();
+
+        for(Passenger passenger : passengers)
+            bookings.addAll(passenger.getBookings());
+
+        return bookings;
+
+    }
+    public static void bookFlight(String flightNumber, ArrayList<Seat> seats, Passenger passenger, int bags, int oddSized, int pillows, int blankets, boolean handicaped){
         //bý til nýtt booking object
-        Booking booking = new Booking(seats, passenger, groupSize, bags, oddSized, pillows, blankets, handicaped);
+        ArrayList<Booking> bookings = new ArrayList<>();
+        Booking booking = new Booking(seats, passenger, bags, oddSized, pillows, blankets, handicaped);
+        bookings.add(booking);
+        passenger.setBookings(bookings);
 
         // find flight that we want to book
         Flight ourFlight = null;
-        for(Flight flight : flights){
+        for(Flight flight : DataFactory.getFlights()){
             if(flight.getFlightNumber().equals(flightNumber)){
                 ourFlight = flight;
                 break;
@@ -112,12 +145,13 @@ public class Controller implements Initializable {
         //þetta gæti verið glöötuð lykkja endilega skulum skoða betur
         int i = 0;
         for(Seat seat : flightSeats){
-            i = 0;
             String seatNumber = seat.getSeatNumber();
+            if(i>= seats.size()) {
+                break;
+            }
             String seatNumber2 = seats.get(i).getSeatNumber(); //okei veit ekki hvort megi hehö
-
             if(seatNumber.equals(seatNumber2)){
-                seat.setBooked();
+                seat.setBooked(true);
                 i+=1;
             }
         }

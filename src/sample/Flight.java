@@ -7,15 +7,15 @@ import java.util.ArrayList;
 public class Flight{
     private String flightNumber;
     private int total_seats;
-    private String source;
-    private String destination;
+    private int source;
+    private int destination;
     private LocalDateTime dateDepartTime;
     private LocalDateTime dateArrivalTime;
     private ArrayList<Seat> seats;
     private int basePrice;
 
 
-    public Flight(String flightNumber, int total_seats, String source, String destination, LocalDateTime dateDepartTime, LocalDateTime dateArrivalTime, ArrayList<Seat> seats, int basePrice) {
+    public Flight(String flightNumber, int total_seats, int source, int destination, LocalDateTime dateDepartTime, LocalDateTime dateArrivalTime, ArrayList<Seat> seats, int basePrice) {
         this.flightNumber = flightNumber;
         this.total_seats = total_seats;
         this.source = source;
@@ -66,11 +66,11 @@ public class Flight{
         return this.dateArrivalTime;
     }
 
-    public String getSource(){
+    public int getSource(){
         return this.source;
     }
 
-    public String getDestination(){
+    public int getDestination(){
         return this.destination;
     }
 
@@ -98,11 +98,11 @@ public class Flight{
         this.total_seats = total_seats;
     }
 
-    public void setSource(String source) {
+    public void setSource(int source) {
         this.source = source;
     }
 
-    public void setDestination(String destination) {
+    public void setDestination(int destination) {
         this.destination = destination;
     }
 

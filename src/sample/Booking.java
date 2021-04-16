@@ -5,17 +5,15 @@ import java.util.ArrayList;
 public class Booking {
     private ArrayList<Seat> seats;
     private Passenger passenger;
-    private int groupSize;
     private int bags;
     private int oddSized;
     private int blankets;
     private int pillows;
     private boolean handicaped;
 
-    public Booking(ArrayList<Seat> seats, Passenger passenger, int groupSize, int bags, int oddSized, int blankets, int pillows, boolean handicaped) {
+    public Booking(ArrayList<Seat> seats, Passenger passenger, int bags, int oddSized, int blankets, int pillows, boolean handicaped) {
         this.seats = seats;
         this.passenger = passenger;
-        this.groupSize = groupSize;
         this.bags = bags;
         this.oddSized = oddSized;
         this.blankets = blankets;
@@ -37,14 +35,6 @@ public class Booking {
 
     public void setPassenger(Passenger passenger) {
         this.passenger = passenger;
-    }
-
-    public int getgroupSize() {
-        return groupSize;
-    }
-
-    public void setgroupSize(int groupSize) {
-        this.groupSize = groupSize;
     }
 
     public int getBags() {

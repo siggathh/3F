@@ -1,10 +1,7 @@
 package sample;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Observable;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +10,7 @@ public class DataFactory {
 
     public static ArrayList<Seat> getSeats(String flightNumber, int total_seats) {
         ArrayList<Seat> seats = new ArrayList<Seat>();
-        for (int k = 0; k < (total_seats / 4); k++) {
+        for (int k = 1; k <= (total_seats / 4); k++) {
             String flightClass;
             if (k < (total_seats / 4)) {
                 flightClass = "firstClass";
@@ -24,7 +21,7 @@ public class DataFactory {
             seats.add(new Seat(Integer.toString(k) + "A", flightNumber, false, flightClass));
             seats.add(new Seat(Integer.toString(k) + "B", flightNumber, false, flightClass));
             seats.add(new Seat(Integer.toString(k) + "C", flightNumber, false, flightClass));
-            seats.add(new Seat(Integer.toString(k) + "D", flightNumber, false, flightClass));
+            seats.add(new Seat(Integer.toString(k) + "D", flightNumber, true, flightClass));
         }
 
         return seats;
@@ -33,7 +30,7 @@ public class DataFactory {
     public static ObservableList<Flight> getFlights() {
         ObservableList<Flight> flightslist = FXCollections.observableArrayList();
 
-        int[] myNum = {19, 32, 37, 72};
+        int[] myNum = {20, 32, 40, 72};
         //LocalDate date = LocalDate.of(2021, 07, 14);
 
         LocalDateTime departure = LocalDateTime.of(2021,07, 14, 14,30);
@@ -42,8 +39,8 @@ public class DataFactory {
         Flight flight1 = new Flight(
                 "FI741",
                 myNum[(int) Math.random() * 4],
-                "Reykjavík",
-                "Akureyri",
+                CNST.RVK,
+                CNST.AK,
                 departure,
                 arrival,
                 null,
@@ -55,8 +52,8 @@ public class DataFactory {
         Flight flight2 = new Flight(
                 "FI852",
                 myNum[(int) Math.random() * 4],
-                "Reykjavík",
-                "Egilsstaðir",
+                CNST.RVK,
+                CNST.HUS,
                 departure,
                 arrival,
                 null,
@@ -68,8 +65,8 @@ public class DataFactory {
         Flight flight3 = new Flight(
                 "FI574",
                 myNum[(int) Math.random() * 4],
-                "Reykjavík",
-                "Ísafjörður",
+                CNST.RVK,
+                CNST.ISAF,
                 departure,
                 arrival,
                 null,
@@ -81,8 +78,8 @@ public class DataFactory {
         Flight flight4 = new Flight(
                 "FEI943",
                 myNum[(int) Math.random() * 4],
-                "Reykjavík",
-                "Vestmannaeyjar",
+                CNST.RVK,
+                CNST.VEST,
                 departure,
                 arrival,
                 null,
@@ -94,8 +91,8 @@ public class DataFactory {
         Flight flight5 = new Flight(
                 "FEI638",
                 myNum[(int) Math.random() * 4],
-                "Húsavík",
-                "Reykjavík",
+                CNST.HUS,
+                CNST.RVK,
                 departure,
                 arrival,
                 null,
@@ -107,8 +104,8 @@ public class DataFactory {
         Flight flight6 = new Flight(
                 "FEI422",
                 myNum[(int) Math.random() * 4],
-                "Höfn í Hornafirði",
-                "Reykjavík",
+                CNST.EGIL,
+                CNST.RVK,
                 departure,
                 arrival,
                 null,
@@ -116,31 +113,57 @@ public class DataFactory {
         );
         flight6.setSeats(getSeats(flight6.getFlightNumber(), flight6.getTotal_seats()));
         flightslist.add(flight6);
-        System.out.println(flight1.toString());
         return flightslist;
     }
 
-    public ObservableList<Passenger> getPassengers(){
+    public static ObservableList<Passenger> getPassengers(){
 
         ObservableList<Passenger> passengers = FXCollections.observableArrayList();
         Passenger passenger1 = new Passenger("1", "Sigga", "Hall");
         Passenger passenger2 = new Passenger("2", "Signý", "Hall");
         Passenger passenger3 = new Passenger("3", "Inga", "Hall");
 
-        ObservableList<Flight>flights = getFlights();
+        ObservableList<Flight> flights = getFlights();
         Flight flight = flights.get(0);
 
+        ArrayList seatsToBook = new ArrayList<>();
+        seatsToBook.add(flight.getSeats().get(0));
+        seatsToBook.add(flight.getSeats().get(1));
+        seatsToBook.add(flight.getSeats().get(2));
+
         ArrayList<Booking> bookings1 = new ArrayList<>();
-        bookings1.add(new Booking(flight.getSeats(), passenger1, 1, 1,1,1,1, false));
-        flight.getSeats().get(0).setBooked();
-        flight.getSeats().get(1).setBooked();
-        flight.getSeats().get(2).setBooked();
+        bookings1.add(new Booking(seatsToBook, passenger1, 1, 1,1,1, false));
+        flight.getSeats().get(0).setBooked(true);
+        flight.getSeats().get(1).setBooked(true);
+        flight.getSeats().get(2).setBooked(true);
         passenger1.setBookings(bookings1);
 
+        Flight flight1 = flights.get(1);
+        ArrayList seatsToBook1 = new ArrayList<>();
+        seatsToBook1.add(flight1.getSeats().get(0));
+        seatsToBook1.add(flight1.getSeats().get(1));
+
+        ArrayList<Booking> bookings2 = new ArrayList<>();
+        bookings2.add(new Booking(seatsToBook1, passenger2, 1, 1,1,1, false));
+        flight1.getSeats().get(0).setBooked(true);
+        flight1.getSeats().get(1).setBooked(true);
+        passenger2.setBookings(bookings2);
+
+        Flight flight2 = flights.get(2);
+        ArrayList seatsToBook2 = new ArrayList<>();
+        seatsToBook2.add(flight2.getSeats().get(3));
+        seatsToBook2.add(flight2.getSeats().get(4));
+        ArrayList<Booking> bookings3 = new ArrayList<>();
+        bookings3.add(new Booking(seatsToBook2, passenger3, 1, 1,1,1, false));
+        flight2.getSeats().get(3).setBooked(true);
+        flight2.getSeats().get(4).setBooked(true);
+        passenger3.setBookings(bookings3);
+
         passengers.add(passenger1);
+        passengers.add(passenger2);
+        passengers.add(passenger3);
 
         return passengers;
     }
-
 
 }

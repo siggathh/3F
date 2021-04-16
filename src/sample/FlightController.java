@@ -1,27 +1,44 @@
 package sample;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.Initializable;
+
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class FlightController implements Initializable {
+public class FlightController implements Initializable{
+
+    private DataFactory dataFactory = new DataFactory();
+    private ObservableList<Flight> flights = FXCollections.observableArrayList();
+    private ObservableList<Passenger> passengers = FXCollections.observableArrayList();
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        passengers = dataFactory.getPassengers();
+        flights = dataFactory.getFlights();
+    }
 
     public static ObservableList<Flight> getAvailableFlights(Parameters p, boolean isTo){
         ObservableList<Flight> availableFlights = FXCollections.observableArrayList();
 
         int groupSize = p.getgroupSize();
-
+        int source = 0;
+        int destination = 0;
+        LocalDate date = null;
         if(isTo){
-            LocalDate date = p.getcheckIn();
+            date = p.getcheckIn();
 
-            int source = p.getdepartLocation();
-            int destination = p.getdestination();
+            source = p.getdepartLocation();
+            destination = p.getDestination();
         }
         else{
-            LocalDate date = p.getcheckOut();
+            date = p.getcheckOut();
 
-            int source = p.getdestination();
-            int destination = p.getdepartLocation();
+            source = p.getDestination();
+            destination = p.getdepartLocation();
         }
 
         for(Flight flight : DataFactory.getFlights()){
@@ -37,6 +54,7 @@ public class FlightController implements Initializable {
     }
 
     public ObservableList<Seat> getAvailableSeats(String flightNumber){
+
         ObservableList<Seat> availableSeats = FXCollections.observableArrayList();
 
         // find flight that we want to book
@@ -59,9 +77,9 @@ public class FlightController implements Initializable {
         return availableSeats;
     }
 
-    public void bookFlight(String flightNumber, ArrayList<Seat> seats, Passenger passenger, int groupSize, int bags, int oddSized, int pillows, int blankets){
+    public void bookFlight(String flightNumber, ArrayList<Seat> seats, Passenger passenger, int bags, int oddSized, int pillows, int blankets){
         //bý til nýtt booking object
-        Booking booking = new Booking(seats, passenger, groupSize, bags, oddSized, pillows, blankets);
+        Booking booking = new Booking(seats, passenger, bags, oddSized, pillows, blankets, false);
 
         // find flight that we want to book
         Flight ourFlight = null;
@@ -83,7 +101,7 @@ public class FlightController implements Initializable {
             String seatNumber2 = seats.get(i).getSeatNumber(); //okei veit ekki hvort megi hehö
 
             if(seatNumber.equals(seatNumber2)){
-                seat.setBooked();
+                seat.setBooked(true);
                 i+=1;
             }
         }
