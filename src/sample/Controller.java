@@ -75,7 +75,7 @@ public class Controller implements Initializable {
         return availableFlights;
     }
 
-    public static ArrayList<Seat> getAvailableSeats(String flightNumber){
+    public static ObservableList<Seat> getAvailableSeats(String flightNumber){
         ArrayList<Seat> notAvailableSeats = new ArrayList<>();
 
         ArrayList<Booking> bookings = getAllBookngs();
@@ -86,12 +86,9 @@ public class Controller implements Initializable {
                 if(seat.getFlightNumber().equals(flightNumber));
                     notAvailableSeats.add(seat);
             }
-
-
+        System.out.println(notAvailableSeats.size());
         }
 
-
-        // find flight that we want to book
         Flight ourFlight = null;
         for(Flight flight : DataFactory.getFlights()){
             if(flight.getFlightNumber().equals(flightNumber)){
@@ -103,14 +100,8 @@ public class Controller implements Initializable {
        ArrayList<Seat> availableSeats = ourFlight.getSeats();
 
        availableSeats.removeAll(notAvailableSeats);
-//
-//        for(Seat seat : ourSeats){
-//            if(!seat.isBooked()){
-//                availableSeats.add(seat);
-//            }
-//        }
-//
-       return availableSeats;
+
+       return FXCollections.observableArrayList(availableSeats);
     }
 
     public static ArrayList<Booking> getAllBookngs() {
