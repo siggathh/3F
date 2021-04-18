@@ -74,46 +74,88 @@ public class Controller implements Initializable {
 
         return availableFlights;
     }
+//
+//    public static ObservableList<Seat> getAvailableSeats(String flightNumber){
+//        ArrayList<Seat> notAvailableSeats = new ArrayList<>();
+//
+//        ArrayList<Booking> bookings = DataFactory.getAllBookings();
+//
+//        for(Booking booking : bookings) {
+//            ArrayList<Seat> seats = booking.getSeats();
+//            for (Seat seat : seats) {
+//                if (seat.getFlightNumber().equals(flightNumber)) {
+//                    notAvailableSeats.add(seat);
+//                }
+//                System.out.println(notAvailableSeats);
+//            }
+//        }
+//
+//        Flight ourFlight = null;
+//        for(Flight flight : DataFactory.getFlights()){
+//            if(flight.getFlightNumber().equals(flightNumber)){
+//                ourFlight = flight;
+//                break;
+//            }
+//        }
+//
+//       ArrayList<Seat> availableSeats = diffSeat(notAvailableSeats, ourFlight.getSeats());
+//        System.out.println(availableSeats.size());
+//
+//       availableSeats.removeAll(notAvailableSeats);
+//        System.out.println(availableSeats);
+//
+//       return FXCollections.observableArrayList(availableSeats);
+//    }
 
-    public static ObservableList<Seat> getAvailableSeats(String flightNumber){
-        ArrayList<Seat> notAvailableSeats = new ArrayList<>();
+    public ObservableList<Seat> getAvailableSeats(String flightNumber){
+        ObservableList<Seat> availableSeats = FXCollections.observableArrayList();
 
-        ArrayList<Booking> bookings = getAllBookngs();
-
-        for(Booking booking : bookings){
-            ArrayList<Seat> seats = booking.getSeats();
-            for(Seat seat : seats){
-                if(seat.getFlightNumber().equals(flightNumber));
-                    notAvailableSeats.add(seat);
-            }
-        System.out.println(notAvailableSeats.size());
-        }
-
+        // find flight that we want to book
         Flight ourFlight = null;
-        for(Flight flight : DataFactory.getFlights()){
+        for(Flight flight : flights){
             if(flight.getFlightNumber().equals(flightNumber)){
                 ourFlight = flight;
                 break;
             }
         }
 
-       ArrayList<Seat> availableSeats = ourFlight.getSeats();
+        ArrayList<Seat> ourSeats = ourFlight.getSeats();
 
-       availableSeats.removeAll(notAvailableSeats);
+        for(Seat seat : ourSeats){
+            if(seat.isBooked() == false){
+                availableSeats.add(seat);
+            }
+        }
 
-       return FXCollections.observableArrayList(availableSeats);
+        return availableSeats;
     }
 
-    public static ArrayList<Booking> getAllBookngs() {
-        ArrayList<Booking> bookings = new ArrayList<>();
-        ObservableList<Passenger> passengers = DataFactory.getPassengers();
+    private static ArrayList<Seat> diffSeat(ArrayList<Seat> notAvailable, ArrayList<Seat> all){
+        ArrayList<Seat> availableSeats = new ArrayList<>();
 
-        for(Passenger passenger : passengers)
-            bookings.addAll(passenger.getBookings());
+        ArrayList<String> notAvailableSeatNumber = new ArrayList<>();
+        for(Seat notSeat : notAvailable) {
+            notAvailableSeatNumber.add(notSeat.getSeatNumber());
+        }
 
-        return bookings;
+        ArrayList<String> seatNumbers = new ArrayList<>();
+        for(Seat seat : all){
+            seatNumbers.add(seat.getSeatNumber());
+        }
 
+       seatNumbers.removeAll(notAvailableSeatNumber);
+
+        for(Seat seat :all){
+            if(seatNumbers.contains(seat.getSeatNumber())){
+                availableSeats.add(seat);
+            }
+        }
+
+
+        return availableSeats;
     }
+
+
     public static void bookFlight(String flightNumber, ArrayList<Seat> seats, Passenger passenger, int bags, int oddSized, int pillows, int blankets, boolean handicaped){
         //bý til nýtt booking object
         ArrayList<Booking> bookings = new ArrayList<>();
@@ -142,7 +184,7 @@ public class Controller implements Initializable {
             }
             String seatNumber2 = seats.get(i).getSeatNumber(); //okei veit ekki hvort megi hehö
             if(seatNumber.equals(seatNumber2)){
-                seat.setBooked(true);
+//                seat.setBooked(true);
                 i+=1;
             }
         }

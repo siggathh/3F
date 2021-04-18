@@ -18,10 +18,10 @@ public class DataFactory {
                 flightClass = "economyClass";
             }
 
-            seats.add(new Seat(Integer.toString(k) + "A", flightNumber, false, flightClass));
-            seats.add(new Seat(Integer.toString(k) + "B", flightNumber, false, flightClass));
-            seats.add(new Seat(Integer.toString(k) + "C", flightNumber, false, flightClass));
-            seats.add(new Seat(Integer.toString(k) + "D", flightNumber, true, flightClass));
+            seats.add(new Seat(Integer.toString(k) + "A", flightNumber, false,flightClass));
+            seats.add(new Seat(Integer.toString(k) + "B",flightNumber, false,flightClass));
+            seats.add(new Seat(Integer.toString(k) + "C",flightNumber, false,flightClass));
+            seats.add(new Seat(Integer.toString(k) + "D", flightNumber, true,flightClass));
         }
 
         return seats;
@@ -133,10 +133,9 @@ public class DataFactory {
 
         ArrayList<Booking> bookings1 = new ArrayList<>();
         bookings1.add(new Booking(seatsToBook, passenger1, 1, 1,1,1, false));
-        flight.getSeats().get(0).setBooked(true);
-        flight.getSeats().get(1).setBooked(true);
-        flight.getSeats().get(2).setBooked(true);
         passenger1.setBookings(bookings1);
+        System.out.println(bookings1.size());
+
 
         Flight flight1 = flights.get(1);
         ArrayList seatsToBook1 = new ArrayList<>();
@@ -145,8 +144,6 @@ public class DataFactory {
 
         ArrayList<Booking> bookings2 = new ArrayList<>();
         bookings2.add(new Booking(seatsToBook1, passenger2, 1, 1,1,1, false));
-        flight1.getSeats().get(0).setBooked(true);
-        flight1.getSeats().get(1).setBooked(true);
         passenger2.setBookings(bookings2);
 
         Flight flight2 = flights.get(2);
@@ -155,8 +152,6 @@ public class DataFactory {
         seatsToBook2.add(flight2.getSeats().get(4));
         ArrayList<Booking> bookings3 = new ArrayList<>();
         bookings3.add(new Booking(seatsToBook2, passenger3, 1, 1,1,1, false));
-        flight2.getSeats().get(3).setBooked(true);
-        flight2.getSeats().get(4).setBooked(true);
         passenger3.setBookings(bookings3);
 
         passengers.add(passenger1);
