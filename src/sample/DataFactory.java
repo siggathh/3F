@@ -124,7 +124,7 @@ public class DataFactory {
                 "FI742",
                 myNum[(int) Math.random() * 4],
                 CNST.AK,
-                CNST.rvk,
+                CNST.RVK,
                 departure_back,
                 arrival_back,
                 null,

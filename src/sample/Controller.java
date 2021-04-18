@@ -44,7 +44,7 @@ public class Controller implements Initializable {
         flights = dataFactory.getFlights();
     }
 
-    public void searchButtonOnActivity(ActionEvent event){
+    public void searchButtonOnActivity(ActionEvent event) {
 
         LocalDate date = datePicker.getValue();
 
@@ -57,15 +57,15 @@ public class Controller implements Initializable {
 //       flightsListView.setItems(availableFlights);
     }
 
-    public static ObservableList<Flight> getAvailableFlights(LocalDate date, int source, int destination, int groupSize){
+    public static ObservableList<Flight> getAvailableFlights(LocalDate date, int source, int destination, int groupSize) {
         ObservableList<Flight> availableFlights = FXCollections.observableArrayList();
 
-        for(Flight flight : DataFactory.getFlights()){
+        for (Flight flight : DataFactory.getFlights()) {
             if (date.equals(flight.getDateArrivalTime().toLocalDate()) &&
                     source == flight.getSource() &&
                     destination == flight.getDestination() &&
                     flight.totalAvailableSeats() >= groupSize) {
-                    availableFlights.add(flight);
+                availableFlights.add(flight);
             }
         }
 
@@ -104,12 +104,12 @@ public class Controller implements Initializable {
 //       return FXCollections.observableArrayList(availableSeats);
 //    }
 
-    public static ObservableList<Seat> getAvailableSeats(String flightNumber){
+    public static ObservableList<Seat> getAvailableSeats(String flightNumber) {
         ObservableList<Seat> availableSeats = FXCollections.observableArrayList();
 
         Flight ourFlight = null;
-        for(Flight flight : DataFactory.getFlights()){
-            if(flight.getFlightNumber().equals(flightNumber)){
+        for (Flight flight : DataFactory.getFlights()) {
+            if (flight.getFlightNumber().equals(flightNumber)) {
                 ourFlight = flight;
                 break;
             }
@@ -117,8 +117,8 @@ public class Controller implements Initializable {
 
         ArrayList<Seat> ourSeats = ourFlight.getSeats();
 
-        for(Seat seat : ourSeats){
-            if(!seat.isBooked()){
+        for (Seat seat : ourSeats) {
+            if (!seat.isBooked()) {
                 availableSeats.add(seat);
             }
         }
@@ -152,17 +152,19 @@ public class Controller implements Initializable {
 //    }
 
 
-    public static void bookFlight(String flightNumber, ArrayList<Seat> seats, Passenger passenger, int bags, int oddSized, int pillows, int blankets, boolean handicaped){
+    public static boolean bookFlight(String flightNumber, ArrayList<Seat> seats, Passenger passenger, int bags, int oddSized, int pillows, int blankets, boolean disability) {
         //bý til nýtt booking object
+        boolean b = false;
+
         ArrayList<Booking> bookings = new ArrayList<>();
-        Booking booking = new Booking(seats, passenger, bags, oddSized, pillows, blankets, handicaped);
+        Booking booking = new Booking(seats, passenger, bags, oddSized, pillows, blankets, disability);
         bookings.add(booking);
         passenger.setBookings(bookings);
 
         // find flight that we want to book
         Flight ourFlight = null;
-        for(Flight flight : DataFactory.getFlights()){
-            if(flight.getFlightNumber().equals(flightNumber)){
+        for (Flight flight : DataFactory.getFlights()) {
+            if (flight.getFlightNumber().equals(flightNumber)) {
                 ourFlight = flight;
                 break;
             }
@@ -171,19 +173,23 @@ public class Controller implements Initializable {
         ArrayList<Seat> flightSeats = ourFlight.getSeats();
 
         //hér þarf svo að stilla sko isBooked fyrir viðeigandi sæti
-        //þetta gæti verið glöötuð lykkja endilega skulum skoða betur
         int i = 0;
-        for(Seat seat : flightSeats){
+        for (Seat seat : flightSeats) {
             String seatNumber = seat.getSeatNumber();
-            if(i>= seats.size()) {
+            if (i >= seats.size()) {
                 break;
             }
-            String seatNumber2 = seats.get(i).getSeatNumber(); //okei veit ekki hvort megi hehö
-            if(seatNumber.equals(seatNumber2)){
-//                seat.setBooked(true);
-                i+=1;
+            String seatNumber2 = seats.get(i).getSeatNumber();
+            if (seatNumber.equals(seatNumber2)) {
+                seat.setBooked(true);
+                i += 1;
             }
         }
+        if(bookings.size() != 0){
+            b = true;
+        }
+        return b;
+
     }
 
 }

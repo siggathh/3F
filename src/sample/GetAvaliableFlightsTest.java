@@ -5,7 +5,6 @@ import org.junit.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Observable;
 
 import static org.junit.Assert.*;
 
@@ -13,7 +12,7 @@ public class GetAvaliableFlightsTest {
     private Controller controller;
 
     private DataFactory dataFactory = new DataFactory();
-    //should return all available flight
+
     @Test
     public void testAvailableFlightsFromReykjavikToAkureyri() {
         ObservableList<Flight> flights = controller.getAvailableFlights(LocalDate.of(2021,07, 14), CNST.RVK, CNST.AK,5);
@@ -22,8 +21,8 @@ public class GetAvaliableFlightsTest {
             assertEquals(2021, flight.getDateArrivalTime().getYear());
             assertEquals(07,  flight.getDateArrivalTime().getMonthValue());
             assertEquals(14,  flight.getDateArrivalTime().getDayOfMonth());
-            assertEquals("Reykjavík", flight.getSource());
-            assertEquals("Akureyri", flight.getDestination());
+            assertEquals(CNST.RVK, flight.getSource());
+            assertEquals(CNST.AK, flight.getDestination());
         }
 
     }
@@ -37,25 +36,15 @@ public class GetAvaliableFlightsTest {
     }
 
     @Test
-    public void testDataFactory(){
-        ObservableList<Flight> flights = DataFactory.getFlights();
-//        assertEquals(null, flights.get(0).toString());
+    public void testBookFlight(){
+        ObservableList<Flight> flights = controller.getAvailableFlights(LocalDate.of(2021,07, 14), CNST.RVK, CNST.HUS,5);
         Flight flight = flights.get(0);
-        ArrayList<Seat> seats = DataFactory.getSeats(flight.getFlightNumber(), flight.getTotal_seats());
-        assertEquals(17, seats.get(0).getSeatNumber());
-    }
-
-    //Illegal destination should get exception
-    @Test(expected = IllegalArgumentException.class)
-    public void testFlightsForUnavailableDestination() {
-        ObservableList<Flight> flights = controller.getAvailableFlights(LocalDate.of(2021,03 ,31), CNST.RVK, 6, 3);
-
-    }
-
-    //Illegal source should get exception
-    @Test(expected = IllegalArgumentException.class)
-    public void testFlightsForUnavailableSource() {
-        ObservableList<Flight> flights = controller.getAvailableFlights(LocalDate.of(2021,03 ,31), 6, CNST.RVK,1);
+        Passenger passenger = new Passenger("123", "Sigga", "Þóra");
+        ArrayList<Seat> seats = new ArrayList<>();
+        seats.add(flight.getSeats().get(0));
+        seats.add(flight.getSeats().get(1));
+        Boolean b =  controller.bookFlight(flight.getFlightNumber(), seats, passenger,1, 1, 1,1,false);
+        assertTrue(b);
 
     }
 
