@@ -36,7 +36,7 @@ public class Flight{
         }
     }
 
-    //gets number available seats
+    //gets number available seats for flight
     public int totalAvailableSeats(){
         int count = 0;
 
@@ -48,6 +48,7 @@ public class Flight{
         return count;
     }
 
+    //for showing the flights
     @Override
     public String toString() {
         return "Flight{" +
