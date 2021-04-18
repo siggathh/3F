@@ -35,10 +35,10 @@ public class DataFactory {
         ObservableList<Flight> flightslist = FXCollections.observableArrayList();
 
         int[] myNum = {20, 32, 40, 72};
-        //LocalDate date = LocalDate.of(2021, 07, 14);
 
         LocalDateTime departure = LocalDateTime.of(2021,07, 14, 14,30);
         LocalDateTime arrival = LocalDateTime.of(2021,07, 14, 15,10);
+
         //creates mock flights
         Flight flight1 = new Flight(
                 "FI741",
@@ -120,6 +120,7 @@ public class DataFactory {
         return flightslist;
     }
 
+    //creates mock passengers and bookings for them
     public static ObservableList<Passenger> getPassengers(){
 
         ObservableList<Passenger> passengers = FXCollections.observableArrayList();
