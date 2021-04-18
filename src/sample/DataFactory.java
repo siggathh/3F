@@ -36,25 +36,53 @@ public class DataFactory {
 
         int[] myNum = {20, 32, 40, 72};
 
+        // 23. april - 30. april short
         LocalDateTime departure1 = LocalDateTime.of(2021,04, 23, 14,30);
         LocalDateTime arrival1 = LocalDateTime.of(2021,04, 23, 15,10);
         LocalDateTime departure_back1 = LocalDateTime.of(2021,04, 30, 17,30);
         LocalDateTime arrival_back1 = LocalDateTime.of(2021,04, 30, 18,10);
 
+        // 24. april - 29. april short
         LocalDateTime departure2 = LocalDateTime.of(2021,04, 24, 14,30);
         LocalDateTime arrival2 = LocalDateTime.of(2021,04, 24, 15,10);
         LocalDateTime departure_back2 = LocalDateTime.of(2021,04, 29, 17,30);
         LocalDateTime arrival_back2 = LocalDateTime.of(2021,04, 29, 18,10);
 
+        // 23. april - 29. april long
         LocalDateTime departure3 = LocalDateTime.of(2021,04, 23, 10,00);
         LocalDateTime arrival3 = LocalDateTime.of(2021,04, 23, 11,10);
         LocalDateTime departure_back3 = LocalDateTime.of(2021,04, 30, 19,20);
         LocalDateTime arrival_back3 = LocalDateTime.of(2021,04, 30, 20,20);
 
+        // 24. april - 29. april long
         LocalDateTime departure4 = LocalDateTime.of(2021,04, 24, 9,30);
-        LocalDateTime arrival4 = LocalDateTime.of(2021,04, 24, 10,20);
+        LocalDateTime arrival4 = LocalDateTime.of(2021,04, 24, 10,40);
         LocalDateTime departure_back4 = LocalDateTime.of(2021,04, 29, 20,10);
-        LocalDateTime arrival_back4 = LocalDateTime.of(2021,04, 29, 21,00);
+        LocalDateTime arrival_back4 = LocalDateTime.of(2021,04, 29, 21,20);
+
+        // 23. april - 30. april short
+        LocalDateTime departure5 = LocalDateTime.of(2021,04, 23, 8,30);
+        LocalDateTime arrival5 = LocalDateTime.of(2021,04, 23, 9,10);
+        LocalDateTime departure_back5 = LocalDateTime.of(2021,04, 30, 10,30);
+        LocalDateTime arrival_back5 = LocalDateTime.of(2021,04, 30, 11,10);
+
+        // 224. april - 29. april short
+        LocalDateTime departure6 = LocalDateTime.of(2021,04, 24, 15,30);
+        LocalDateTime arrival6 = LocalDateTime.of(2021,04, 24, 16,10);
+        LocalDateTime departure_back6 = LocalDateTime.of(2021,04, 29, 19,30);
+        LocalDateTime arrival_back6 = LocalDateTime.of(2021,04, 29, 20,10);
+
+        // 23. april - 30. april long
+        LocalDateTime departure7 = LocalDateTime.of(2021,04, 23, 7,00);
+        LocalDateTime arrival7 = LocalDateTime.of(2021,04, 23, 8,10);
+        LocalDateTime departure_back7 = LocalDateTime.of(2021,04, 30, 12,20);
+        LocalDateTime arrival_back7 = LocalDateTime.of(2021,04, 30, 13,20);
+
+        // 24. april - 29. april long
+        LocalDateTime departure8 = LocalDateTime.of(2021,04, 24, 10,30);
+        LocalDateTime arrival8 = LocalDateTime.of(2021,04, 24, 11,40);
+        LocalDateTime departure_back8 = LocalDateTime.of(2021,04, 29, 13,10);
+        LocalDateTime arrival_back8 = LocalDateTime.of(2021,04, 29, 14,20);
 
         //creates mock flights
         Flight flight1a = new Flight(
@@ -160,6 +188,110 @@ public class DataFactory {
         );
         flight4b.setSeats(getSeats(flight4b.getFlightNumber(), flight4b.getTotal_seats()));
         flightslist.add(flight4b);
+
+        Flight flight5a = new Flight(
+                "FI747",
+                myNum[(int) Math.random() * 4],
+                CNST.RVK,
+                CNST.AK,
+                departure5,
+                arrival5,
+                null,
+                30000 + (int) Math.random() * (100000 - 30000 + 1)
+        );
+        flight5a.setSeats(getSeats(flight5a.getFlightNumber(), flight5a.getTotal_seats()));
+        flightslist.add(flight5a);
+
+        Flight flight5b = new Flight(
+                "FI748",
+                myNum[(int) Math.random() * 4],
+                CNST.AK,
+                CNST.RVK,
+                departure_back5,
+                arrival_back5,
+                null,
+                30000 + (int) Math.random() * (100000 - 30000 + 1)
+        );
+        flight5b.setSeats(getSeats(flight5b.getFlightNumber(), flight5b.getTotal_seats()));
+        flightslist.add(flight5b);
+
+        Flight flight6a = new Flight(
+                "FI749",
+                myNum[(int) Math.random() * 4],
+                CNST.RVK,
+                CNST.AK,
+                departure6,
+                arrival6,
+                null,
+                30000 + (int) Math.random() * (100000 - 30000 + 1)
+        );
+        flight6a.setSeats(getSeats(flight6a.getFlightNumber(), flight6a.getTotal_seats()));
+        flightslist.add(flight6a);
+
+        Flight flight6b = new Flight(
+                "FI750",
+                myNum[(int) Math.random() * 4],
+                CNST.AK,
+                CNST.RVK,
+                departure_back6,
+                arrival_back6,
+                null,
+                30000 + (int) Math.random() * (100000 - 30000 + 1)
+        );
+        flight6b.setSeats(getSeats(flight6b.getFlightNumber(), flight6b.getTotal_seats()));
+        flightslist.add(flight6b);
+
+        Flight flight7a = new Flight(
+                "FI751",
+                myNum[(int) Math.random() * 4],
+                CNST.RVK,
+                CNST.AK,
+                departure7,
+                arrival7,
+                null,
+                30000 + (int) Math.random() * (100000 - 30000 + 1)
+        );
+        flight7a.setSeats(getSeats(flight7a.getFlightNumber(), flight7a.getTotal_seats()));
+        flightslist.add(flight7a);
+
+        Flight flight7b = new Flight(
+                "FI751",
+                myNum[(int) Math.random() * 4],
+                CNST.AK,
+                CNST.RVK,
+                departure_back7,
+                arrival_back7,
+                null,
+                30000 + (int) Math.random() * (100000 - 30000 + 1)
+        );
+        flight7b.setSeats(getSeats(flight7b.getFlightNumber(), flight7b.getTotal_seats()));
+        flightslist.add(flight7b);
+
+        Flight flight8a = new Flight(
+                "FI753",
+                myNum[(int) Math.random() * 4],
+                CNST.RVK,
+                CNST.AK,
+                departure8,
+                arrival8,
+                null,
+                30000 + (int) Math.random() * (100000 - 30000 + 1)
+        );
+        flight8a.setSeats(getSeats(flight8a.getFlightNumber(), flight8a.getTotal_seats()));
+        flightslist.add(flight8a);
+
+        Flight flight8b = new Flight(
+                "FI754",
+                myNum[(int) Math.random() * 4],
+                CNST.AK,
+                CNST.RVK,
+                departure_back8,
+                arrival_back8,
+                null,
+                30000 + (int) Math.random() * (100000 - 30000 + 1)
+        );
+        flight8b.setSeats(getSeats(flight8b.getFlightNumber(), flight8b.getTotal_seats()));
+        flightslist.add(flight8b);
 
         // Flight flight2 = new Flight(
         //         "FI852",
