@@ -38,6 +38,8 @@ public class DataFactory {
 
         LocalDateTime departure = LocalDateTime.of(2021,07, 14, 14,30);
         LocalDateTime arrival = LocalDateTime.of(2021,07, 14, 15,10);
+        LocalDateTime departure_back = LocalDateTime.of(2021,07, 21, 17,30);
+        LocalDateTime arrival_back = LocalDateTime.of(2021,07, 21, 18,10);
 
         //creates mock flights
         Flight flight1 = new Flight(
@@ -117,6 +119,19 @@ public class DataFactory {
         );
         flight6.setSeats(getSeats(flight6.getFlightNumber(), flight6.getTotal_seats()));
         flightslist.add(flight6);
+
+        Flight flight7 = new Flight(
+                "FI742",
+                myNum[(int) Math.random() * 4],
+                CNST.AK,
+                CNST.rvk,
+                departure_back,
+                arrival_back,
+                null,
+                30000 + (int) Math.random() * (100000 - 30000 + 1)
+        );
+        flight7.setSeats(getSeats(flight7.getFlightNumber(), flight7.getTotal_seats()));
+        flightslist.add(flight7);
         return flightslist;
     }
 
