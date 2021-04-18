@@ -66,7 +66,7 @@ public class DataFactory {
         LocalDateTime departure_back5 = LocalDateTime.of(2021,04, 30, 10,30);
         LocalDateTime arrival_back5 = LocalDateTime.of(2021,04, 30, 11,10);
 
-        // 224. april - 29. april short
+        // 24. april - 29. april short
         LocalDateTime departure6 = LocalDateTime.of(2021,04, 24, 15,30);
         LocalDateTime arrival6 = LocalDateTime.of(2021,04, 24, 16,10);
         LocalDateTime departure_back6 = LocalDateTime.of(2021,04, 29, 19,30);
@@ -88,8 +88,8 @@ public class DataFactory {
         Flight flight1a = new Flight(
                 "FI741",
                 myNum[(int) Math.random() * 4],
-                CNST.RVK,
                 CNST.AK,
+                CNST.RVK,
                 departure1,
                 arrival1,
                 null,
@@ -101,8 +101,8 @@ public class DataFactory {
         Flight flight1b = new Flight(
                 "FI742",
                 myNum[(int) Math.random() * 4],
-                CNST.AK,
                 CNST.RVK,
+                CNST.AK,
                 departure_back1,
                 arrival_back1,
                 null,
@@ -114,8 +114,8 @@ public class DataFactory {
         Flight flight2a = new Flight(
                 "FI743",
                 myNum[(int) Math.random() * 4],
-                CNST.RVK,
                 CNST.AK,
+                CNST.RVK,
                 departure2,
                 arrival2,
                 null,
@@ -127,8 +127,8 @@ public class DataFactory {
         Flight flight2b = new Flight(
                 "FI744",
                 myNum[(int) Math.random() * 4],
-                CNST.AK,
                 CNST.RVK,
+                CNST.AK,
                 departure_back2,
                 arrival_back2,
                 null,
@@ -140,8 +140,8 @@ public class DataFactory {
         Flight flight3a = new Flight(
                 "FI745",
                 myNum[(int) Math.random() * 4],
-                CNST.RVK,
                 CNST.AK,
+                CNST.RVK,
                 departure3,
                 arrival3,
                 null,
@@ -153,8 +153,8 @@ public class DataFactory {
         Flight flight3b = new Flight(
                 "FI746",
                 myNum[(int) Math.random() * 4],
-                CNST.AK,
                 CNST.RVK,
+                CNST.AK,
                 departure_back3,
                 arrival_back3,
                 null,
@@ -166,8 +166,8 @@ public class DataFactory {
         Flight flight4a = new Flight(
                 "FI747",
                 myNum[(int) Math.random() * 4],
-                CNST.RVK,
                 CNST.AK,
+                CNST.RVK,
                 departure4,
                 arrival4,
                 null,
@@ -179,8 +179,8 @@ public class DataFactory {
         Flight flight4b = new Flight(
                 "FI748",
                 myNum[(int) Math.random() * 4],
-                CNST.AK,
                 CNST.RVK,
+                CNST.AK,
                 departure_back4,
                 arrival_back4,
                 null,
@@ -192,8 +192,8 @@ public class DataFactory {
         Flight flight5a = new Flight(
                 "FI747",
                 myNum[(int) Math.random() * 4],
-                CNST.RVK,
                 CNST.AK,
+                CNST.RVK,
                 departure5,
                 arrival5,
                 null,
@@ -205,8 +205,8 @@ public class DataFactory {
         Flight flight5b = new Flight(
                 "FI748",
                 myNum[(int) Math.random() * 4],
-                CNST.AK,
                 CNST.RVK,
+                CNST.AK,
                 departure_back5,
                 arrival_back5,
                 null,
@@ -218,8 +218,8 @@ public class DataFactory {
         Flight flight6a = new Flight(
                 "FI749",
                 myNum[(int) Math.random() * 4],
-                CNST.RVK,
                 CNST.AK,
+                CNST.RVK,
                 departure6,
                 arrival6,
                 null,
@@ -231,8 +231,8 @@ public class DataFactory {
         Flight flight6b = new Flight(
                 "FI750",
                 myNum[(int) Math.random() * 4],
-                CNST.AK,
                 CNST.RVK,
+                CNST.AK,
                 departure_back6,
                 arrival_back6,
                 null,
@@ -244,8 +244,8 @@ public class DataFactory {
         Flight flight7a = new Flight(
                 "FI751",
                 myNum[(int) Math.random() * 4],
-                CNST.RVK,
                 CNST.AK,
+                CNST.RVK,
                 departure7,
                 arrival7,
                 null,
@@ -257,8 +257,8 @@ public class DataFactory {
         Flight flight7b = new Flight(
                 "FI751",
                 myNum[(int) Math.random() * 4],
-                CNST.AK,
                 CNST.RVK,
+                CNST.AK,
                 departure_back7,
                 arrival_back7,
                 null,
@@ -270,8 +270,8 @@ public class DataFactory {
         Flight flight8a = new Flight(
                 "FI753",
                 myNum[(int) Math.random() * 4],
-                CNST.RVK,
                 CNST.AK,
+                CNST.RVK,
                 departure8,
                 arrival8,
                 null,
@@ -283,8 +283,8 @@ public class DataFactory {
         Flight flight8b = new Flight(
                 "FI754",
                 myNum[(int) Math.random() * 4],
-                CNST.AK,
                 CNST.RVK,
+                CNST.AK,
                 departure_back8,
                 arrival_back8,
                 null,
