@@ -30,7 +30,6 @@ public class GetAvaliableFlightsTest {
 
     @Test
     public void testAvailableSeats(){
-        ObservableList<Passenger> passengers = DataFactory.getPassengers();
         ObservableList<Flight> flights = controller.getAvailableFlights(LocalDate.of(2021,07, 14), CNST.RVK, CNST.AK,5);
         ObservableList<Seat> seats = controller.getAvailableSeats(flights.get(0).getFlightNumber());
         Assert.assertEquals(17, seats.size());

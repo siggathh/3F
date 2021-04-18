@@ -21,8 +21,12 @@ public class DataFactory {
             seats.add(new Seat(Integer.toString(k) + "A", flightNumber, false,flightClass));
             seats.add(new Seat(Integer.toString(k) + "B",flightNumber, false,flightClass));
             seats.add(new Seat(Integer.toString(k) + "C",flightNumber, false,flightClass));
-            seats.add(new Seat(Integer.toString(k) + "D", flightNumber, true,flightClass));
+            seats.add(new Seat(Integer.toString(k) + "D", flightNumber, false,flightClass));
         }
+
+        seats.get(0).setBooked(true);
+        seats.get(1).setBooked(true);
+        seats.get(2).setBooked(true);
 
         return seats;
     }
@@ -34,7 +38,7 @@ public class DataFactory {
         //LocalDate date = LocalDate.of(2021, 07, 14);
 
         LocalDateTime departure = LocalDateTime.of(2021,07, 14, 14,30);
-        LocalDateTime arrival = LocalDateTime.of(2021,07, 14, 15,10);;
+        LocalDateTime arrival = LocalDateTime.of(2021,07, 14, 15,10);
         //creates mock flights
         Flight flight1 = new Flight(
                 "FI741",

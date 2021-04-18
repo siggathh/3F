@@ -35,7 +35,7 @@ public class Controller implements Initializable {
     private TextField groupSizeTextField;
 
     private DataFactory dataFactory = new DataFactory();
-    private ObservableList<Flight> flights = FXCollections.observableArrayList();
+    private static ObservableList<Flight> flights = FXCollections.observableArrayList();
     private ObservableList<Passenger> passengers = FXCollections.observableArrayList();
 
     @Override
@@ -52,16 +52,13 @@ public class Controller implements Initializable {
         String destination = destinationTextField.getText();
         int groupSize = Integer.parseInt(groupSizeTextField.getText());
 
-
 //        ObservableList<Flight> availableFlights = getAvailableFlights(date, source, destination, groupSize);
 
-//        flightsListView.setItems(availableFlights);
+//       flightsListView.setItems(availableFlights);
     }
 
     public static ObservableList<Flight> getAvailableFlights(LocalDate date, int source, int destination, int groupSize){
         ObservableList<Flight> availableFlights = FXCollections.observableArrayList();
-        //LocalDate beforeDate = date.minusDays(1);
-        //LocalDate afterDate = date.plusDays(1);
 
         for(Flight flight : DataFactory.getFlights()){
             if (date.equals(flight.getDateArrivalTime().toLocalDate()) &&
@@ -107,12 +104,11 @@ public class Controller implements Initializable {
 //       return FXCollections.observableArrayList(availableSeats);
 //    }
 
-    public ObservableList<Seat> getAvailableSeats(String flightNumber){
+    public static ObservableList<Seat> getAvailableSeats(String flightNumber){
         ObservableList<Seat> availableSeats = FXCollections.observableArrayList();
 
-        // find flight that we want to book
         Flight ourFlight = null;
-        for(Flight flight : flights){
+        for(Flight flight : DataFactory.getFlights()){
             if(flight.getFlightNumber().equals(flightNumber)){
                 ourFlight = flight;
                 break;
@@ -122,7 +118,7 @@ public class Controller implements Initializable {
         ArrayList<Seat> ourSeats = ourFlight.getSeats();
 
         for(Seat seat : ourSeats){
-            if(seat.isBooked() == false){
+            if(!seat.isBooked()){
                 availableSeats.add(seat);
             }
         }
@@ -130,30 +126,30 @@ public class Controller implements Initializable {
         return availableSeats;
     }
 
-    private static ArrayList<Seat> diffSeat(ArrayList<Seat> notAvailable, ArrayList<Seat> all){
-        ArrayList<Seat> availableSeats = new ArrayList<>();
-
-        ArrayList<String> notAvailableSeatNumber = new ArrayList<>();
-        for(Seat notSeat : notAvailable) {
-            notAvailableSeatNumber.add(notSeat.getSeatNumber());
-        }
-
-        ArrayList<String> seatNumbers = new ArrayList<>();
-        for(Seat seat : all){
-            seatNumbers.add(seat.getSeatNumber());
-        }
-
-       seatNumbers.removeAll(notAvailableSeatNumber);
-
-        for(Seat seat :all){
-            if(seatNumbers.contains(seat.getSeatNumber())){
-                availableSeats.add(seat);
-            }
-        }
-
-
-        return availableSeats;
-    }
+//    private static ArrayList<Seat> diffSeat(ArrayList<Seat> notAvailable, ArrayList<Seat> all){
+//        ArrayList<Seat> availableSeats = new ArrayList<>();
+//
+//        ArrayList<String> notAvailableSeatNumber = new ArrayList<>();
+//        for(Seat notSeat : notAvailable) {
+//            notAvailableSeatNumber.add(notSeat.getSeatNumber());
+//        }
+//
+//        ArrayList<String> seatNumbers = new ArrayList<>();
+//        for(Seat seat : all){
+//            seatNumbers.add(seat.getSeatNumber());
+//        }
+//
+//       seatNumbers.removeAll(notAvailableSeatNumber);
+//
+//        for(Seat seat :all){
+//            if(seatNumbers.contains(seat.getSeatNumber())){
+//                availableSeats.add(seat);
+//            }
+//        }
+//
+//
+//        return availableSeats;
+//    }
 
 
     public static void bookFlight(String flightNumber, ArrayList<Seat> seats, Passenger passenger, int bags, int oddSized, int pillows, int blankets, boolean handicaped){
